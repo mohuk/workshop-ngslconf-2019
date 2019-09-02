@@ -92,6 +92,7 @@ CMD ["serve", "--host","0.0.0.0"]
 Build the image with the `Dockerfile` with the following command
 
 ```bash
+# Example command
 $ docker build --tag {app_tag_name} {root_context}
 ```
 
@@ -102,3 +103,35 @@ $ docker build --tag docker-app .
 ```
 
 When successful, execute the `docker images` command to see your image named `docker-app` in the list.
+
+## Step 6
+Let's run the image created in `Step 5` with the following command
+
+```bash
+# Example command
+$ docker build --detach --publish {host_port}:{container_port} {docker_image_tag}
+```
+
+Which in our case will be:
+
+```bash
+$ docker run --detach --publish 4200:4200 docker-app
+```
+
+Browse [localhost:4200](http://localhost:4200) and find your application running inside a container. To see the running container, run `docker ps` and find your container listed.
+
+## Step 7
+Notice that changing the files on the editor does not reflect on the app like it does on running ng serve on your machine instead of a container. Explanation for that is, the container is running a copy of the files instead of the original. Rebuilding and running the container will reflect the content. To link the `src` folder from host machine to container, we will make use of a volume mount.
+
+```bash
+# Example command
+$ docker run --detach --publish {host_port}:{container_port} --volume {host_folder_path}:{container_folder_path} {docker_image_tag}
+```
+
+Which in our case will be:
+
+```bash
+docker run --detach --publish 4200:4200 --volume {absolute_path_to_folder}/src/:/docker-app/src docker-app
+```
+
+Change the source, save and see the changes reflect.
