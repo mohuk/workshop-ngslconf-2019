@@ -135,3 +135,11 @@ docker run --detach --publish 4200:4200 --volume {absolute_path_to_folder}/src/:
 ```
 
 Change the source, save and see the changes reflect.
+
+## Why would we ever need this complication ?
+
+Our demonstration is fairly simple and is only educating the most basic of cases. But in real life, there might be additional packages our application might require outside of `npm` say, `make`, `gcc`, `g++`, `python` or `ruby`.
+
+Did you know [Sass](https://sass-lang.com/) was originally written in `ruby`? Before we had [node-sass](https://github.com/sass/node-sass), apps that used [Sass](https://sass-lang.com/) required `ruby` and its respective gems installed. There are still packages which you might require that are ourside of `npm` e.g. [angularfire2](https://github.com/angular/angularfire2) when used with cloud functions requires a few of those packages. You never noticed because you use `Ubuntu` or `Windows` which might have them already installed.
+
+Building such environments in containers guarantee that the correct envirnment is baked into the image for the application to run successfully.
