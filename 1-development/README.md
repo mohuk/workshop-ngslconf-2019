@@ -55,3 +55,50 @@ CMD ["serve", "--host","0.0.0.0"]
 ```
 
 Let's break the instructions one by one.
+
+```code
+# Base image should contain NodeJS published with the tag 10.16.3
+# Tag in NodeJS images means the version of NodeJS installed in the image
+FROM node:10.16.3
+
+# Create a new directory where we will move our code
+RUN mkdir -p /docker-app
+
+# Set the created directory as the default directory for future commands
+WORKDIR /docker-app
+
+# Copy the package.json package-lock.json into the Workdir
+COPY package.json package-lock.json ./
+
+# Run npm install to install all dependencies
+RUN npm install
+
+# Copy rest of the sorce code folders into the Workdir
+COPY . ./
+
+# Expose port 4200 to make it available to be bound on the host machine
+EXPOSE 4200
+
+# Define an Entrypoint from where the commands can be executed
+ENTRYPOINT ["./node_modules/.bin/ng"]
+
+# Define a command to execute from the Entrypoint
+CMD ["serve", "--host","0.0.0.0"]
+```
+
+`EXPOSE`, `ENTRYPOINT` and `CMD` can be overridden when exeuting the image.
+
+## Step 5
+Build the image with the `Dockerfile` with the following command
+
+```bash
+$ docker build --tag {app_tag_name} {root_context}
+```
+
+In our case this will be
+
+```bash
+$ docker build --tag docker-app .
+```
+
+When successful, execute the `docker images` command to see your image named `docker-app` in the list.
