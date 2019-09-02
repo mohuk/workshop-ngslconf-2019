@@ -38,8 +38,8 @@ node_modules
 ## Step 4
 Think of the Docker container as a completely different machine. Let's start putting commands in the `Dockerfile`.
 
-```code
-FROM node:10.16.3
+```bash
+FROM node:10.16.3-alpine
 
 RUN mkdir -p /docker-app
 WORKDIR /docker-app
@@ -56,10 +56,11 @@ CMD ["serve", "--host","0.0.0.0"]
 
 Let's break the instructions one by one.
 
-```code
+```bash
 # Base image should contain NodeJS published with the tag 10.16.3
 # Tag in NodeJS images means the version of NodeJS installed in the image
-FROM node:10.16.3
+# alpine is a very light weight linux distro
+FROM node:10.16.3-alpine
 
 # Create a new directory where we will move our code
 RUN mkdir -p /docker-app
@@ -137,7 +138,6 @@ docker run --detach --publish 4200:4200 --volume {absolute_path_to_folder}/src/:
 Change the source, save and see the changes reflect.
 
 ## Why would we ever need this complication ?
-
 Our demonstration is fairly simple and is only educating the most basic of cases. But in real life, there might be additional packages our application might require outside of `npm` say, `make`, `gcc`, `g++`, `python` or `ruby`.
 
 Did you know [Sass](https://sass-lang.com/) was originally written in `ruby`? Before we had [node-sass](https://github.com/sass/node-sass), apps that used [Sass](https://sass-lang.com/) required `ruby` and its respective gems installed. There are still packages which you might require that are ourside of `npm` e.g. [angularfire2](https://github.com/angular/angularfire2) when used with cloud functions requires a few of those packages. You never noticed because you use `Ubuntu` or `Windows` which might have them already installed. Build servers are generally bare bones and this is where Docker would take care of building the environment for a successful build.
