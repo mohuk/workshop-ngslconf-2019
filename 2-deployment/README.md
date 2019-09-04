@@ -67,3 +67,33 @@ FROM nginx:1.16.1-alpine
 # Copy build from builder image (above) "docker-app/dist/*" to html folder to serve via nginx
 COPY --from=builder /docker-app/dist/* /usr/share/nginx/html
 ```
+
+## Step 3
+Let's compare the size of the 2 images by executing `docker images`. Find the 2 entries i.e. `docker-app` and `docker-app-build` and compare its `SIZE` column. This huge difference in size enables us to quickly transfer (push/pull) the image and greatly use deployment time.
+
+# Providing Build Arguments as Angular Environments
+If we want to make use of `--configuration` flag and not create a separate Dockerfile for each environment, we can make do by defining build arguments when building the Dockerfile.
+
+## Step 1
+This is the `Dockerfile.build` we created above.
+
+```bash
+FROM node:10.16.3-alpine AS builder
+
+# Addition start
+ARG CONFIG=dev
+# Addition end
+
+RUN mkdir -p /docker-app
+WORKDIR /docker-app
+COPY package.json package-lock.json ./
+RUN npm install
+
+COPY . ./
+
+RUN ./node_modules/.bin/ng build --configuration ${CONFIG}
+
+FROM nginx:1.16.1-alpine
+
+COPY --from=builder /docker-app/dist/* /usr/share/nginx/html
+```
