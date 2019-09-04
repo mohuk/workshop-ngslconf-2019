@@ -7,4 +7,3 @@ A step-by-step walkthrough of containerizing and shipping Angular apps
 2. [Verify Docker installation](/0-setup)
 3. [Creating a Dockerfile for development](/1-development)
 4. [Creating a Dockerfile for deployment](/2-deployment)
-5. [Running e2e tests with Docker](/3-testing)
