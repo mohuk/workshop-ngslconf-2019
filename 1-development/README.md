@@ -4,7 +4,7 @@
 Create a new Angular project via the [angular-cli](https://www.npmjs.com/package/@angular/cli).
 
 ```bash
-$ ng new docker-app --defaults
+$ ng new docker-app --routing=false --style=css --skipInstall=true --minimal=true
 ```
 
 Run and verify if the application is working fine.
