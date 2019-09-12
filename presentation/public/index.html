@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+	<html class="sl-root decks export offline loaded">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Containerizing Angular with Docker</title>
+
+		<meta name="description" content="Presentation for NgSL Conf Containerizing Angular applications with Docker">
+
+		<link rel="stylesheet" type="text/css" href="lib/offline-v2.css">
+
+
+
+	</head>
+	<body class="reveal-viewport theme-font-montserrat theme-color-white-blue">
+		<div class="reveal">
+			<div class="slides">
+				<section data-id="284dffc66e7f7a2f7e1d4664ad354ea5" data-background-image="ngslconf2019-ng-docker-workshop/cf43e07d2aa55127c7f584d227932fde.png" data-background-size="contain">
+
+
+
+</section><section data-id="6afbcae520e2b070747e6b4b4f482b30"><div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 71px; height: auto;" data-block-id="358553452b9d3ea9b537130048cce75e">
+    <div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="z-index: 11;">
+        <h2>$ whoami</h2>
+    </div>
+</div>
+
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 226px; height: 226px; left: 367px; top: 170px;" data-block-id="4504750e621f467650a64afd59e78083">
+    <div class="sl-block-content" style="z-index: 13;">
+        <img style="" data-natural-width="416" data-natural-height="416" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/255782465aef23a8af428c337ee62969.jpg">
+    </div>
+</div>
+
+
+<div class="sl-block" data-block-type="image" data-block-id="60b8ad8ddf2a58aa9f46f8999af166d8" style="min-width: 4px; min-height: 4px; width: 305px; height: 91px; left: 328px; top: 395px;">
+    <div class="sl-block-content" style="z-index: 14;">
+        <img style="" data-natural-width="500" data-natural-height="149" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/89f1e5227796ae65166a67c5a6f24c97.png">
+    </div>
+</div>
+
+
+<div class="sl-block" data-block-type="image" style="width: 94px; height: 88px; left: 833px; top: 27px; min-width: 4px; min-height: 4px;" data-block-id="f719ac7b3e8e1315ddf5c69452cb63d8">
+    <div class="sl-block-content" style="z-index: 12;"><img style="" data-natural-width="1448" data-natural-height="1350" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/53a668c18006bf0dedc2a2cadc510a47.png"></div>
+</div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 225px; height: 89px; left: 128px; top: 526px;" data-block-id="572263584b5cf1b2bd4bfcd678ac5a01">
+    <div class="sl-block-content" style="z-index: 15;"><img style="" data-natural-width="2269" data-natural-height="896" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/78bb59d88fe366f1700e2863e238d809.png"></div>
+</div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 112px; height: 112px; left: 664px; top: 515px;" data-block-id="536eca6f81c9044fc50ac95b7e91c333">
+    <div class="sl-block-content" style="z-index: 16;"><img style="" data-natural-width="175" data-natural-height="175" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/956d0f247b314c9fd6f449693636ca9d.jpg"></div>
+</div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 107px; height: 107px; left: 427px; top: 517px;" data-block-id="0c7399444207679dcb5494bd903ee47c">
+    <div class="sl-block-content" style="z-index: 17;"><img style="" data-natural-width="1021" data-natural-height="1021" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/4be3dc04a0a5869f0ae6fc1df5f0385d.png"></div>
+</div></section><section class="stack" data-id="ce32f16ae3e3160911b5297a76e02d52"><section data-id="15e249fde7d96ae058dcadac076dced7" data-background-image="ngslconf2019-ng-docker-workshop/4f255c653b15eb397bc791db8c08217e">
+
+</section><section data-id="3693b8294eca404593ad582f63fe1352"><div class="sl-block" data-block-type="image" style="width: 94px; height: 88px; left: 833px; top: 26px; min-width: 4px; min-height: 4px;" data-block-id="fbf8fbb3d897c33d277a296594857121"><div class="sl-block-content" style="z-index: 11;"><img style="" data-natural-width="1448" data-natural-height="1350" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/53a668c18006bf0dedc2a2cadc510a47.png"></div></div>
+<div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 140px; height: auto;" data-block-id="4b89bb0a37a3c3f40f14dc3e0c592ec2"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12;">
+<h1>If you are a startup</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 227px; height: 189px; left: 47px; top: 326px; min-width: 4px; min-height: 4px;" data-block-id="98012ab56814829d46f5406fe014f02d"><div class="sl-block-content" style="z-index: 13;"><img style="" data-natural-width="143" data-natural-height="119" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/9f1d1b44b50075fbfca6b3b37d56addc.png"></div></div>
+<div class="sl-block" data-block-type="text" data-block-id="fc3607ef9c9010b3c8a9da7b1b24c227" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 320px; top: 362px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14;">
+<ul>
+	<li>Super easy to scale up/down</li>
+	<li>Dependable deployments</li>
+	<li>Configuration management simplified</li>
+</ul>
+</div></div></section><section data-id="242b7582c0548a7d129b99d46938c61c"><div class="sl-block" data-block-type="image" style="width: 94px; height: 88px; left: 833px; top: 26px; min-width: 4px; min-height: 4px;" data-block-id="5a096313be0952accecc0cebc626aac8"><div class="sl-block-content" style="z-index: 10;"><img style="" data-natural-width="1448" data-natural-height="1350" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/53a668c18006bf0dedc2a2cadc510a47.png"></div></div>
+<div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 140px; height: auto;" data-block-id="d481f9503e252c1b0759e3fb2967924c"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1>If you are an enterprise</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 227px; height: 189px; left: 47px; top: 326px; min-width: 4px; min-height: 4px;" data-block-id="6d6c53fed059e24c917290236f6b8607"><div class="sl-block-content" style="z-index: 12;"><img style="" data-natural-width="143" data-natural-height="119" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/9f1d1b44b50075fbfca6b3b37d56addc.png"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 600px; left: 320px; top: 362px;" data-block-id="1f336d13a88751b073c6622577df0ca2"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<ul>
+	<li>Super easy onboarding</li>
+	<li>Allows orchestration</li>
+	<li>Easier rollouts</li>
+	<li>Efficient management of resources</li>
+</ul>
+</div></div></section><section data-id="9148843fe832b1c70cd3b37c5af59808"><div class="sl-block" data-block-type="image" style="width: 94px; height: 88px; left: 833px; top: 26px; min-width: 4px; min-height: 4px;" data-block-id="b44e30f70fd8124130dbb169db0b00be"><div class="sl-block-content" style="z-index: 11;"><img style="" data-natural-width="1448" data-natural-height="1350" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/53a668c18006bf0dedc2a2cadc510a47.png"></div></div>
+<div class="sl-block" data-block-type="text" style="width: 960px; left: 0px; top: 140px; height: auto;" data-block-id="94df28d8b3028fa2ca4560322ec7fe80"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12;">
+<h1>If you using</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 142px; height: 140px; left: 129px; top: 280px;" data-block-id="4bcb28780d9d52733ba78d29e90903be"><div class="sl-block-content" style="z-index: 13;"><img style="" data-natural-width="1370" data-natural-height="1350" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/96316f703d2d906ab77d069d3288873a.png"></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 272px; height: 40px; left: 304px; top: 330px;" data-block-id="8fdfee5bd44e2eb106e52864b8faa2d9"><div class="sl-block-content" style="z-index: 14;"><img style="" data-natural-width="2500" data-natural-height="368" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/59f1aa5eb7243bf7b604d36c154dfb82.png"></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 104px; height: 101px; left: 628px; top: 300px;" data-block-id="9bf3468dee2a46b40aa4f3c537f3e0ea"><div class="sl-block-content" style="z-index: 15;"><img style="" data-natural-width="209" data-natural-height="203" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/7cb6fd84bdcf5a99a937943d9b61e803.png"></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 189px; height: 189px; left: 211px; top: 420px;" data-block-id="1863c0d1cd9b7690ac566fc4e93a8e22"><div class="sl-block-content" style="z-index: 16;"><img style="" data-natural-width="600" data-natural-height="600" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/a081600bd426ee83d2eb161c710c700d.png"></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 210px; height: 107px; left: 400px; top: 461px;" data-block-id="4823398faf5d2ffd18840a5e6afd1b1b"><div class="sl-block-content" style="z-index: 17;"><img style="" data-natural-width="904" data-natural-height="460" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/7768d8d17f56bd53e3b3d0119ba1808b.png"></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 181px; height: 181px; left: 630px; top: 449px;" data-block-id="92a872c4c1db37dc90f212a4b13ebe26"><div class="sl-block-content" style="z-index: 18;"><img style="" data-natural-width="500" data-natural-height="500" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/40b45d525e313c5cc32362b9b76cf7e8.png"></div></div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 142px; height: 132px; left: 80px; top: 449px;" data-block-id="abfbe08b997ce073ec959a04695146eb"><div class="sl-block-content" style="z-index: 19;"><img style="" data-natural-width="240" data-natural-height="223" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/3e44010fb3396ae460a5e5fddd161544.png"></div></div></section></section><section class="stack" data-id="b5cacd3b4249d5b759a0453664c58283"><section data-id="f39a73bc780527436ae1fd83fc58acb9"><div class="sl-block" data-block-type="image" style="width: 94px; height: 88px; left: 833px; top: 26px; min-width: 4px; min-height: 4px;" data-block-id="c216ca98315c12b7fed171a3c174cce3"><div class="sl-block-content" style="z-index: 11;"><img style="" data-natural-width="1448" data-natural-height="1350" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/53a668c18006bf0dedc2a2cadc510a47.png"></div></div>
+<div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 113px; height: auto;" data-block-id="b299bb81b501e765540c7eb3228f74d7"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 12;">
+<h1>What we will accomplish</h1>
+</div></div>
+<div class="sl-block" data-block-type="text" data-block-id="c9d1847df0102bc7bf06eb8bfc4576ad" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 180px; top: 350px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<ul>
+	<li>Angular app development with Docker</li>
+	<li>Angular app deployment with Docker</li>
+</ul>
+</div></div></section><section data-id="1d3ba4ed5242269febf9cc90dcd5c4f6"><div class="sl-block" data-block-type="image" style="width: 94px; height: 88px; left: 833px; top: 26px; min-width: 4px; min-height: 4px;" data-block-id="fe7b3b98f16c0e140149d14b36059b58"><div class="sl-block-content" style="z-index: 10;"><img style="" data-natural-width="1448" data-natural-height="1350" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/53a668c18006bf0dedc2a2cadc510a47.png"></div></div>
+<div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 113px; height: auto;" data-block-id="3615e1d22971e1c93d698122b0b63a3f"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1>Pre-requisites</h1>
+</div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 600px; left: 180px; top: 350px;" data-block-id="5d35b752d7499c2b0ed90d0fe609e29d"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;">
+<ul>
+	<li>Docker CE installed on your machine</li>
+	<li>NodeJS installed</li>
+	<li>Angular CLI installed</li>
+</ul>
+</div></div></section></section><section class="stack" data-id="47c8da3ad4534f90feb10d13067c8f71"><section data-id="28ffaaa5d8e696365e7b03219e36e546"><div class="sl-block" data-block-type="image" style="width: 94px; height: 88px; left: 833px; top: 26px; min-width: 4px; min-height: 4px;" data-block-id="5a096313be0952accecc0cebc626aac8">
+    <div class="sl-block-content" style="z-index: 11;"><img style="" data-natural-width="1448" data-natural-height="1350" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/53a668c18006bf0dedc2a2cadc510a47.png"></div>
+</div>
+
+
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 537px; left: 11px; top: 591px;" data-block-id="ead29053ec09b8cdff552790aadaeb2c">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 12;">
+        <p style="text-align:left"><span style="font-size:0.5em"><a href="https://www.docker.com/what-container#/package_software" target="_blank">https://www.docker.com/what-container#/package_software</a> </span></p>
+    </div>
+</div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 423px; height: 338px; left: 29px; top: 172px;" data-block-id="f9b4b3062160348d47c6e59d4ec82461">
+    <div class="sl-block-content" style="z-index: 13;"><img style="" data-natural-width="1198" data-natural-height="957" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/2044652deee1c6e77fdcb53d165ee6e4.png"></div>
+</div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 423px; height: 338px; left: 503px; top: 172px;" data-block-id="06c9814ecfc518ec27422ed83343bab5">
+    <div class="sl-block-content" style="z-index: 14;"><img style="" data-natural-width="1198" data-natural-height="957" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/dda6df45ff256fc61f87ed3e5f223ae1.png"></div>
+</div></section><section data-id="68a9db6d03276a550ded2aa61c81c4b4"><div class="sl-block" data-block-type="image" style="width: 94px; height: 88px; left: 833px; top: 26px; min-width: 4px; min-height: 4px;" data-block-id="b44e30f70fd8124130dbb169db0b00be">
+    <div class="sl-block-content" style="z-index: 11;"><img style="" data-natural-width="1448" data-natural-height="1350" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/53a668c18006bf0dedc2a2cadc510a47.png"></div>
+</div>
+
+
+
+
+
+
+
+<div class="sl-block" data-block-type="code" data-block-id="bad87dad034d2fac2bcbc37c972b62b7" style="min-width: 30px; min-height: 30px; width: 960px; height: 499px; left: 0px; top: 140px;">
+    <div class="sl-block-content notranslate" data-highlight-theme="github-gist" data-code-frame="none" style="z-index: 12; font-size: 150%;">
+        <pre class="javascript"><code data-line-numbers="1-10|13|15">// Creating a blueprint
+class Person { 
+    constructor(firstName, lastName) {
+    	this.firstName = firstName;
+        this.lastName = lastName;
+    }
+  
+    fullName() {
+      console.log(`${this.firstName} ${this.lastName}`);
+    }
+}
+
+const batman = new Person('Bruce', 'Wayne');
+
+const robin = new Person('Dick', 'Grayson');
+</code></pre>
+    </div>
+</div></section><section data-id="f213bf15f84052160a18e8a0c2b15f8e"><div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 110px; height: 95px; left: 102px; top: 334px;" data-block-id="646053d42618b08b1602e2ff83f0c88e">
+    <div class="sl-block-content" style="z-index: 10;"><img style="" data-natural-width="165" data-natural-height="142" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/f2e789311db06507b83f7e1abeb40f27.png"></div>
+</div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 137px; height: 140px; left: 89px; top: 305px;" data-block-id="7948ad7a9887c87dd8338f3dd70024b8">
+    <div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgba(0, 0, 0, 0)" data-shape-stretch="true" style="z-index: 11;" data-shape-stroke-color="#000000" data-shape-stroke-width="5px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 137 140"><defs><clippath id="shape-mask-12-1568062936940"><rect width="137" height="140" rx="0" ry="0"></rect></clippath></defs><rect width="137" height="140" rx="0" ry="0" clip-path="url(#shape-mask-12-1568062936940)" class="shape-element" fill="rgba(0, 0, 0, 0)" stroke="#000000" stroke-width="10"></rect></svg></div>
+</div>
+
+
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 173px; height: 98px; left: 716px; top: 327px;" data-block-id="a12982aa18f019ced5e7e19b5e9607e0">
+    <div class="sl-block-content" style="z-index: 13;"><img style="" data-natural-width="266" data-natural-height="150" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/5892dce558b68660b5f13109127b7fe7.png"></div>
+</div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 59px; height: 51px; left: 693px; top: 302px;" data-block-id="bef963507434ea677dc602cb406d70c8">
+    <div class="sl-block-content" style="z-index: 14;"><img style="" data-natural-width="165" data-natural-height="142" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/f2e789311db06507b83f7e1abeb40f27.png"></div>
+</div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 249px; top: 375px;" data-block-id="831bfa9d37f304a273b0759d7d12d319">
+    <div class="sl-block-content" data-line-x1="537" data-line-y1="24" data-line-x2="93" data-line-y2="23" data-line-color="#000000" data-line-start-type="none" data-line-end-type="none" style="z-index: 15;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="444" height="1" viewbox="93 23 444 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="537" y1="24" x2="93" y2="23"></line><line stroke="#000000" stroke-width="2" x1="537" y1="24" x2="93" y2="23"></line></svg></div>
+</div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 225px; left: 329px; top: 324px;" data-block-id="36bde6cb25218c272cea33b63511cfe6">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 16;">
+        <p><span style="font-size:0.9em">$ docker run </span></p>
+    </div>
+</div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 221px; left: 47px; top: 255px;" data-block-id="6d07b3e3bbb29045afaa83d6909e48f6">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 17;">
+        <p>Image</p>
+    </div>
+</div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 221px; left: 692px; top: 255px;" data-block-id="d2a12ce8e1c572f0b43d2fe1554ea908">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 18;">
+        <p>Container</p>
+    </div>
+</div>
+<div class="sl-block" data-block-type="image" style="width: 94px; height: 88px; left: 833px; top: 26px; min-width: 4px; min-height: 4px;" data-block-id="4e350601a4c1179d8842ab8be9e016a9">
+    <div class="sl-block-content" style="z-index: 19;"><img style="" data-natural-width="1448" data-natural-height="1350" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/53a668c18006bf0dedc2a2cadc510a47.png"></div>
+</div></section><section data-id="bcac1744e4c35a370259103def86b8a5"><div class="sl-block" data-block-type="shape" style="width: 222px; height: 210px; left: 111px; top: 68px;" data-block-id="18093b0c2ec1f5a928d28adb97d0e275">
+    <div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgba(0, 0, 0, 0)" data-shape-stretch="true" style="z-index: 11;" data-shape-stroke-color="#000000" data-shape-stroke-width="5px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 222 210"><defs><clippath id="shape-mask-1-1568064943267"><rect width="222" height="210" rx="0" ry="0"></rect></clippath></defs><rect width="222" height="210" rx="0" ry="0" clip-path="url(#shape-mask-1-1568064943267)" class="shape-element" fill="rgba(0, 0, 0, 0)" stroke="#000000" stroke-width="10"></rect></svg></div>
+</div>
+<div class="sl-block" data-block-type="image" style="width: 59px; height: 51px; left: 137px; top: 209px; min-width: 4px; min-height: 4px;" data-block-id="2cbf53c9fa12a054ab447ce92bbcadea">
+    <div class="sl-block-content" style="z-index: 13;"><img style="" data-natural-width="165" data-natural-height="142" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/f2e789311db06507b83f7e1abeb40f27.png"></div>
+</div>
+<div class="sl-block" data-block-type="shape" style="width: 80px; height: 51px; left: 127px; top: 209px;" data-block-id="af797bbf1d3b4334ef4bda3d81d15888">
+    <div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgba(0, 0, 0, 0)" data-shape-stretch="true" style="z-index: 14;" data-shape-stroke-color="#000000" data-shape-stroke-width="5px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 80 51"><defs><clippath id="shape-mask-2-1568064943275"><rect width="80" height="51" rx="0" ry="0"></rect></clippath></defs><rect width="80" height="51" rx="0" ry="0" clip-path="url(#shape-mask-2-1568064943275)" class="shape-element" fill="rgba(0, 0, 0, 0)" stroke="#000000" stroke-width="10"></rect></svg></div>
+</div>
+<div class="sl-block" data-block-type="image" style="width: 59px; height: 51px; left: 138px; top: 148px; min-width: 4px; min-height: 4px;" data-block-id="d77b3f91d8943403f8b5b46a6ac9e6e4">
+    <div class="sl-block-content" style="z-index: 15;"><img style="" data-natural-width="165" data-natural-height="142" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/f2e789311db06507b83f7e1abeb40f27.png"></div>
+</div>
+<div class="sl-block" data-block-type="shape" style="width: 80px; height: 51px; left: 127px; top: 148px;" data-block-id="e2256a8d269f6e73b988b2843cd98339">
+    <div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgba(0, 0, 0, 0)" data-shape-stretch="true" style="z-index: 16;" data-shape-stroke-color="#000000" data-shape-stroke-width="5px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 80 51"><defs><clippath id="shape-mask-3-1568064943283"><rect width="80" height="51" rx="0" ry="0"></rect></clippath></defs><rect width="80" height="51" rx="0" ry="0" clip-path="url(#shape-mask-3-1568064943283)" class="shape-element" fill="rgba(0, 0, 0, 0)" stroke="#000000" stroke-width="10"></rect></svg></div>
+</div>
+<div class="sl-block" data-block-type="image" style="width: 59px; height: 51px; left: 137px; top: 87px; min-width: 4px; min-height: 4px;" data-block-id="855c97f1e2d7cbaecebb7a1fbe0df919">
+    <div class="sl-block-content" style="z-index: 17;"><img style="" data-natural-width="165" data-natural-height="142" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/f2e789311db06507b83f7e1abeb40f27.png"></div>
+</div>
+<div class="sl-block" data-block-type="shape" style="width: 81px; height: 51px; left: 126px; top: 87px;" data-block-id="12c28cc952e2504847a9aff014bcf420">
+    <div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgba(0, 0, 0, 0)" data-shape-stretch="true" style="z-index: 18;" data-shape-stroke-color="#000000" data-shape-stroke-width="5px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 81 51"><defs><clippath id="shape-mask-4-1568064943288"><rect width="81" height="51" rx="0" ry="0"></rect></clippath></defs><rect width="81" height="51" rx="0" ry="0" clip-path="url(#shape-mask-4-1568064943288)" class="shape-element" fill="rgba(0, 0, 0, 0)" stroke="#000000" stroke-width="10"></rect></svg></div>
+</div>
+<div class="sl-block" data-block-type="image" style="width: 59px; height: 51px; left: 242px; top: 209px; min-width: 4px; min-height: 4px;" data-block-id="723719181e00fea2178c9477e579adbe">
+    <div class="sl-block-content" style="z-index: 19;"><img style="" data-natural-width="165" data-natural-height="142" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/f2e789311db06507b83f7e1abeb40f27.png"></div>
+</div>
+<div class="sl-block" data-block-type="shape" style="width: 80px; height: 51px; left: 232px; top: 209px;" data-block-id="68cc28e7c89be77ea0e27237858949e7">
+    <div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgba(0, 0, 0, 0)" data-shape-stretch="true" style="z-index: 10;" data-shape-stroke-color="#000000" data-shape-stroke-width="5px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 80 51"><defs><clippath id="shape-mask-5-1568064943293"><rect width="80" height="51" rx="0" ry="0"></rect></clippath></defs><rect width="80" height="51" rx="0" ry="0" clip-path="url(#shape-mask-5-1568064943293)" class="shape-element" fill="rgba(0, 0, 0, 0)" stroke="#000000" stroke-width="10"></rect></svg></div>
+</div>
+<div class="sl-block" data-block-type="image" style="width: 59px; height: 51px; left: 243px; top: 148px; min-width: 4px; min-height: 4px;" data-block-id="1fa3f4e0ec50cde66d3a3a0d5911e7da">
+    <div class="sl-block-content" style="z-index: 20;"><img style="" data-natural-width="165" data-natural-height="142" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/f2e789311db06507b83f7e1abeb40f27.png"></div>
+</div>
+<div class="sl-block" data-block-type="shape" style="width: 80px; height: 51px; left: 232px; top: 148px;" data-block-id="0939a4a52f1f0eac4228b0cad9da2de2">
+    <div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgba(0, 0, 0, 0)" data-shape-stretch="true" style="z-index: 21;" data-shape-stroke-color="#000000" data-shape-stroke-width="5px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 80 51"><defs><clippath id="shape-mask-6-1568064943300"><rect width="80" height="51" rx="0" ry="0"></rect></clippath></defs><rect width="80" height="51" rx="0" ry="0" clip-path="url(#shape-mask-6-1568064943300)" class="shape-element" fill="rgba(0, 0, 0, 0)" stroke="#000000" stroke-width="10"></rect></svg></div>
+</div>
+<div class="sl-block" data-block-type="image" style="width: 59px; height: 51px; left: 242px; top: 87px; min-width: 4px; min-height: 4px;" data-block-id="beaf6728592449f605209ae8c83be602">
+    <div class="sl-block-content" style="z-index: 22;"><img style="" data-natural-width="165" data-natural-height="142" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/f2e789311db06507b83f7e1abeb40f27.png"></div>
+</div>
+<div class="sl-block" data-block-type="shape" style="width: 80px; height: 51px; left: 231px; top: 87px;" data-block-id="010500c35d8034fea154d73ef0f8e412">
+    <div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgba(0, 0, 0, 0)" data-shape-stretch="true" style="z-index: 23;" data-shape-stroke-color="#000000" data-shape-stroke-width="5px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 80 51"><defs><clippath id="shape-mask-7-1568064943304"><rect width="80" height="51" rx="0" ry="0"></rect></clippath></defs><rect width="80" height="51" rx="0" ry="0" clip-path="url(#shape-mask-7-1568064943304)" class="shape-element" fill="rgba(0, 0, 0, 0)" stroke="#000000" stroke-width="10"></rect></svg></div>
+</div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 333px; top: 174px;" data-block-id="cb9383ee0c81efe297790caaf7ce5f23">
+    <div class="sl-block-content" data-line-x1="257" data-line-y1="-76" data-line-x2="-78" data-line-y2="-76" data-line-color="#000000" data-line-start-type="line-arrow" data-line-end-type="none" style="z-index: 24;" data-line-style="dotted"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="335" height="1" viewbox="-78 -76 335 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="255" y1="-76" x2="-78" y2="-76"></line><line stroke="#000000" stroke-width="2" stroke-dasharray="0 3.988095238095238" stroke-linecap="round" x1="255" y1="-76" x2="-78" y2="-76"></line><path style="fill: rgba(0,0,0,0);" stroke="#000000" stroke-width="2" transform="translate(255,-76) rotate(270)" d="M -6 -6 L 0 0 L 6 -6"></path></svg></div>
+</div>
+<div class="sl-block" data-block-type="image" style="width: 110px; height: 95px; left: 681px; top: 129px; min-width: 4px; min-height: 4px;" data-block-id="b633ac25bef354165f3dd128967aa6fd">
+    <div class="sl-block-content" style="z-index: 25;"><img style="" data-natural-width="165" data-natural-height="142" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/f2e789311db06507b83f7e1abeb40f27.png"></div>
+</div>
+<div class="sl-block" data-block-type="shape" style="width: 137px; height: 147px; left: 668px; top: 100px;" data-block-id="c9dbea99e1cc10f7e475e3b55101f812">
+    <div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgba(0, 0, 0, 0)" data-shape-stretch="true" style="z-index: 26;" data-shape-stroke-color="#000000" data-shape-stroke-width="5px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 137 147"><defs><clippath id="shape-mask-8-1568064943312"><rect width="137" height="147" rx="0" ry="0"></rect></clippath></defs><rect width="137" height="147" rx="0" ry="0" clip-path="url(#shape-mask-8-1568064943312)" class="shape-element" fill="rgba(0, 0, 0, 0)" stroke="#000000" stroke-width="10"></rect></svg></div>
+</div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 300px; left: 351px; top: 129px;" data-block-id="c4fefe6f065dce385073f8024f5203a0">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 27;">
+        <p><span style="font-size:0.9em">$ docker pull</span></p>
+    </div>
+</div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 273px; top: 247px;" data-block-id="d9bfd5c6f0e340abe6090c897d789356">
+    <div class="sl-block-content" data-line-x1="-200" data-line-y1="242" data-line-x2="198" data-line-y2="-58" data-line-color="#000000" data-line-start-type="none" data-line-end-type="none" style="z-index: 28;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="398" height="300" viewbox="-200 -58 398 300"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="-200" y1="242" x2="198" y2="-58"></line><line stroke="#000000" stroke-width="2" x1="-200" y1="242" x2="198" y2="-58"></line></svg></div>
+</div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 300px; left: 315px; top: 346px;" data-block-id="51680d20e2462ce5aa8f335fe288ca77">
+    <div class="sl-block-style" style="z-index: 29; transform: rotate(323deg);">
+        <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 29;">
+            <p><span style="font-size:0.9em">$ docker run </span></p>
+        </div>
+    </div>
+</div>
+<div class="sl-block" data-block-type="image" style="width: 173px; height: 98px; left: 185px; top: 547px; min-width: 4px; min-height: 4px;" data-block-id="fe7ec1878493552a86ce745f024f08b7">
+    <div class="sl-block-content" style="z-index: 30;"><img style="" data-natural-width="266" data-natural-height="150" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/5892dce558b68660b5f13109127b7fe7.png"></div>
+</div>
+<div class="sl-block" data-block-type="image" style="width: 59px; height: 51px; left: 162px; top: 522px; min-width: 4px; min-height: 4px;" data-block-id="9fc303e4184d461d5d2fd8c63474b452">
+    <div class="sl-block-content" style="z-index: 31;"><img style="" data-natural-width="165" data-natural-height="142" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/f2e789311db06507b83f7e1abeb40f27.png"></div>
+</div>
+<div class="sl-block" data-block-type="image" style="width: 173px; height: 98px; left: 651px; top: 547px; min-width: 4px; min-height: 4px;" data-block-id="29bd60fd7c0deebae61b45c8da846760">
+    <div class="sl-block-content" style="z-index: 32;"><img style="" data-natural-width="266" data-natural-height="150" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/5892dce558b68660b5f13109127b7fe7.png"></div>
+</div>
+<div class="sl-block" data-block-type="image" style="width: 59px; height: 51px; left: 628px; top: 522px; min-width: 4px; min-height: 4px;" data-block-id="ac12a47c1424e198c3a3420c6af1e4ce">
+    <div class="sl-block-content" style="z-index: 33;"><img style="" data-natural-width="165" data-natural-height="142" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/f2e789311db06507b83f7e1abeb40f27.png"></div>
+</div>
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; left: 736px; top: 247px;" data-block-id="4bc257542b74923a722ec31add56bf09">
+    <div class="sl-block-content" data-line-x1="253" data-line-y1="233" data-line-x2="255" data-line-y2="-68" data-line-color="#000000" data-line-start-type="none" data-line-end-type="none" style="z-index: 34;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="2" height="301" viewbox="253 -68 2 301"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="253" y1="233" x2="255" y2="-68"></line><line stroke="#000000" stroke-width="2" x1="253" y1="233" x2="255" y2="-68"></line></svg></div>
+</div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 225px; left: 594px; top: 378px;" data-block-id="5f16bff7db818c7d1a541415142e1c00">
+    <div class="sl-block-style" style="z-index: 35; transform: rotate(270deg);">
+        <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 35;">
+            <p><span style="font-size:0.9em">$ docker run </span></p>
+        </div>
+    </div>
+</div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 221px; left: 112px; top: 22px;" data-block-id="17a64c44b8571c5f0112a2fa216734a1">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 36;">
+        <p>Registry</p>
+    </div>
+</div>
+<div class="sl-block" data-block-type="text" style="height: auto; width: 221px; left: 628px; top: 30px;" data-block-id="ce259c0b16d4a6ff8003616acae094ca">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 37;">
+        <p>Image</p>
+    </div>
+</div>
+<div class="sl-block" data-block-type="image" style="width: 94px; height: 88px; left: 833px; top: 26px; min-width: 4px; min-height: 4px;" data-block-id="d58f38464c520bc98c26ea606a191472">
+    <div class="sl-block-content" style="z-index: 38;"><img style="" data-natural-width="1448" data-natural-height="1350" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/53a668c18006bf0dedc2a2cadc510a47.png"></div>
+</div></section><section data-id="5a6f9f2e3578a988d648bf878c0562d8"><div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 110px; height: 95px; left: 102px; top: 334px;" data-block-id="646053d42618b08b1602e2ff83f0c88e">
+    <div class="sl-block-content" style="z-index: 12;"><img style="" data-natural-width="165" data-natural-height="142" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/f2e789311db06507b83f7e1abeb40f27.png"></div>
+</div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 137px; height: 140px; left: 89px; top: 305px;" data-block-id="7948ad7a9887c87dd8338f3dd70024b8">
+    <div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgba(0, 0, 0, 0)" data-shape-stretch="true" style="z-index: 11;" data-shape-stroke-color="#000000" data-shape-stroke-width="5px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 137 140"><defs><clippath id="shape-mask-3-1568261882047"><rect width="137" height="140" rx="0" ry="0"></rect></clippath></defs><rect width="137" height="140" rx="0" ry="0" clip-path="url(#shape-mask-3-1568261882047)" class="shape-element" fill="rgba(0, 0, 0, 0)" stroke="#000000" stroke-width="10"></rect></svg></div>
+</div>
+
+
+
+
+<div class="sl-block" data-block-type="line" style="width: auto; height: auto; min-width: 1px; min-height: 1px; left: 249px; top: 375px;" data-block-id="831bfa9d37f304a273b0759d7d12d319">
+    <div class="sl-block-content" data-line-x1="537" data-line-y1="24" data-line-x2="93" data-line-y2="23" data-line-color="#000000" data-line-start-type="none" data-line-end-type="none" style="z-index: 13;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" preserveaspectratio="xMidYMid" width="444" height="1" viewbox="93 23 444 1"><line stroke="rgba(0,0,0,0)" stroke-width="15" x1="537" y1="24" x2="93" y2="23"></line><line stroke="#000000" stroke-width="2" x1="537" y1="24" x2="93" y2="23"></line></svg></div>
+</div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 225px; left: 329px; top: 324px;" data-block-id="36bde6cb25218c272cea33b63511cfe6">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 14;">
+<p><span style="font-size:0.9em">$ docker build</span></p>
+</div>
+</div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 221px; left: 47px; top: 255px;" data-block-id="6d07b3e3bbb29045afaa83d6909e48f6">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 15;">
+<p>Dockerfile</p>
+</div>
+</div>
+
+<div class="sl-block" data-block-type="image" style="width: 94px; height: 88px; left: 833px; top: 26px; min-width: 4px; min-height: 4px;" data-block-id="4e350601a4c1179d8842ab8be9e016a9">
+    <div class="sl-block-content" style="z-index: 16;"><img style="" data-natural-width="1448" data-natural-height="1350" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/53a668c18006bf0dedc2a2cadc510a47.png"></div>
+</div>
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 110px; height: 95px; left: 722px; top: 334px;" data-block-id="2928eb3a2970c15473aa66ad9299893a">
+    <div class="sl-block-content" style="z-index: 18;"><img style="" data-natural-width="165" data-natural-height="142" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/f2e789311db06507b83f7e1abeb40f27.png"></div>
+</div>
+<div class="sl-block" data-block-type="shape" style="min-width: 4px; min-height: 4px; width: 137px; height: 140px; left: 709px; top: 305px;" data-block-id="8dddf17b425b04458a2708fd84a53c45">
+    <div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="rgba(0, 0, 0, 0)" data-shape-stretch="true" style="z-index: 17;" data-shape-stroke-color="#000000" data-shape-stroke-width="5px"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 137 140"><defs><clippath id="shape-mask-4-1568262006330"><rect width="137" height="140" rx="0" ry="0"></rect></clippath></defs><rect width="137" height="140" rx="0" ry="0" clip-path="url(#shape-mask-4-1568262006330)" class="shape-element" fill="rgba(0, 0, 0, 0)" stroke="#000000" stroke-width="10"></rect></svg></div>
+</div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 221px; left: 667px; top: 255px;" data-block-id="488fb1dba8fb0ad7bc90a2d16ffc7ec1">
+    <div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 19;">
+<p>Image</p>
+</div>
+</div>
+<div class="sl-block" data-block-type="shape" data-block-id="1be01f31fff9ac0624a44887ebb1cdae" style="min-width: 4px; min-height: 4px; width: 27px; height: 29px; left: 199px; top: 305px;"><div class="sl-block-content" data-shape-type="rect" data-shape-fill-color="#000000" data-shape-stretch="true" style="z-index: 20;"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%" preserveaspectratio="none" viewbox="0 0 27 29"><rect width="27" height="29" rx="0" ry="0" class="shape-element" fill="#000000"></rect></svg></div></div></section><section data-id="52eb1bfd57a6e5387b93c090c088de25" data-background-image="ngslconf2019-ng-docker-workshop/112ece968aad91bf4b2617151881f049.jpg" data-background-size="contain"></section></section><section data-id="cd80ee1fd524d65da3183ae1a5f452e3"><div class="sl-block" data-block-type="image" style="width: 94px; height: 88px; left: 833px; top: 26px; min-width: 4px; min-height: 4px;" data-block-id="17c83311b49bc00526c82600131e5250"><div class="sl-block-content" style="z-index: 10;"><img style="" data-natural-width="1448" data-natural-height="1350" data-lazy-loaded="" data-src="ngslconf2019-ng-docker-workshop/53a668c18006bf0dedc2a2cadc510a47.png"></div></div>
+<div class="sl-block" data-block-type="text" style="width: 800px; left: 80px; top: 205px; height: auto;" data-block-id="96b302292f13edf7cb57560a562c650d"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 11;">
+<h1>This is a follow along workshop, so code with me</h1>
+</div></div></section><section data-id="b3811c5589de55a8c3046eba0833f967" data-background-image="ngslconf2019-ng-docker-workshop/51f99043b1232ed89acc1abd457a70a1.png" data-background-size="contain"></section>
+			</div>
+		</div>
+
+		<script>
+			var SLConfig = {"deck": {"id":1591059,"slug":"ngslconf2019-ng-docker-workshop","title":"Containerizing Angular with Docker","description":"Presentation for NgSL Conf Containerizing Angular applications with Docker","width":960,"height":700,"visibility":"all","published_at":"2019-09-04T11:37:26.148Z","sanitize_messages":null,"thumbnail_url":"https://s3.amazonaws.com/media-p.slid.es/thumbnails/4994a1141b1c0ae7829ab5057e05abce/thumb.jpg?1568288452","view_count":7,"user":{"id":98627,"username":"mohuk","name":"Mohammad Umair Khan","description":"Trainer, Mentor, Foo, Bar !","thumbnail_url":"https://lh6.googleusercontent.com/-7c5c-nsk-Yg/AAAAAAAAAAI/AAAAAAAAAGQ/g2ld-Aw08vU/photo.jpg","paid":true,"pro":false,"lite":true,"team_id":null,"settings":{"id":9445,"present_controls":true,"present_upsizing":true,"present_pointer":false,"present_notes":false,"default_deck_tag_id":null}},"background_transition":"slide","transition":"slide","theme_id":null,"theme_font":"montserrat","theme_color":"white-blue","auto_slide_interval":0,"comments_enabled":true,"forking_enabled":true,"rolling_links":false,"center":false,"shuffle":false,"should_loop":false,"share_notes":false,"slide_number":false,"slide_count":19,"rtl":false,"version":2,"collaborative":null,"deck_user_editor_limit":1,"data_updated_at":1568288468390,"font_typekit":null,"font_google":null,"time_limit":null,"upsizing_enabled":true,"notes":{"284dffc66e7f7a2f7e1d4664ad354ea5":"Greeting\n\nAwesome day for the Angular Community in SriLanka, Thank you all for joining the workshop","6afbcae520e2b070747e6b4b4f482b30":"I am Muhammad Umair Khan\n\nKarachi\n\nArchitect @ 10pearls\n\n10Pearls, a software services company based off of US\n\nI do all this community stuff as well","15e249fde7d96ae058dcadac076dced7":"Going to talk about something known as containers and why I got interested in the first place\n\n\u003cMediaPro story\u003e\n\nFast forward a few months \n\n\u003cCherry story\u003e\n\nThese are containers used by shipping companies around the globe\n\nEver wondered why such containers are used ? \n- Ensure portability \n- Ensure reliability\n\nSo the way it is at the manufacturers is exactly the same when it reaches the consumers\n\nIts a very similar concept in software","28ffaaa5d8e696365e7b03219e36e546":"We all know about Docker as the container platform\n\n","3693b8294eca404593ad582f63fe1352":"","242b7582c0548a7d129b99d46938c61c":"","9148843fe832b1c70cd3b37c5af59808":"","8f2ba3c3a6ae4cbfe04f1f616aca93d8":"","f39a73bc780527436ae1fd83fc58acb9":"","1d3ba4ed5242269febf9cc90dcd5c4f6":"","cd80ee1fd524d65da3183ae1a5f452e3":"","b3811c5589de55a8c3046eba0833f967":"","52eb1bfd57a6e5387b93c090c088de25":"","68a9db6d03276a550ded2aa61c81c4b4":"","f213bf15f84052160a18e8a0c2b15f8e":"","bcac1744e4c35a370259103def86b8a5":"","5a6f9f2e3578a988d648bf878c0562d8":""}}};
+
+
+			// Use local fonts
+			SLConfig.fonts_url = 'lib/fonts/';
+		</script>
+
+		<script src="lib/reveal.min.js"></script>
+		<script src="lib/offline.js"></script>
+
+		<!-- Initialize the presentation -->
+		<script>
+			Reveal.initialize({
+				width: 960,
+				height: 700,
+				margin: 0.05,
+				
+
+				hash: true,
+				controls: true,
+				progress: true,
+				mouseWheel: false,
+				showNotes: false,
+				slideNumber: false,
+
+				autoSlide: 0,
+				autoSlideStoppable: true,
+
+				center: false,
+				shuffle: false,
+				loop: false,
+				rtl: false,
+
+				transition: "slide",
+				backgroundTransition: "slide",
+
+				highlight: {
+					escapeHTML: false
+				},
+
+				dependencies: [
+					{ src: 'lib/reveal-plugins/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'lib/reveal-plugins/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'lib/reveal-plugins/highlight/highlight.js' },
+					{ src: 'lib/reveal-plugins/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'lib/reveal-plugins/zoom/zoom.js', async: true }
+				]
+			});
+		</script>
+
+		
+
+	</body>
+</html>
